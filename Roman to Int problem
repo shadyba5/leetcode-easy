@@ -1,0 +1,66 @@
+#include <iostream>
+
+using namespace std;
+class Solution {
+public:
+    static int romanCharToInt(int* arr,string s){
+        for (int i = 0; i < s.length(); ++i) {
+            switch ((char)s[i]) {
+                case ('I'):
+                    arr[i]=1;
+                    break;
+                case ('V'):
+                    arr[i]= 5;
+                    break;
+                case ('X'):
+                    arr[i]= 10;
+                    break;
+                case ('L'):
+                    arr[i]= 50;
+                    break;
+                case ('C'):
+                    arr[i]= 100;
+                    break;
+                case ('D'):
+                    arr[i]= 500;
+                    break;
+                case ('M'):
+                    arr[i]= 1000;
+                    break;
+                default:
+                    return -1;
+            }
+        }
+        return 0;
+    }
+    static int romanToInt(string s) {
+        int sum = 0;
+        int arr[16];
+        if(romanCharToInt(arr,s)){
+            cout << "invalid number" << endl;
+            return -404;
+        }
+        for (int i = 0; i < s.length(); ++i) {
+            if((arr[i+1]>arr[i]) && (i!=s.length()-1)){
+                sum-=arr[i];
+                continue;
+            }
+            sum+=arr[i];
+        }
+
+        return sum;
+    }
+};
+int main() {
+    new Solution();
+    string s;
+    cout<< "enter your Roman Number up to 15 letters: " << endl;
+    while(1){
+        std::cin >> s;
+        cout << "the length of your roman number is : " <<s.length() << endl;
+        int res = Solution::romanToInt(s);
+        std::cout << "value = "   << res << std::endl;
+
+    }
+    return 0;
+}
