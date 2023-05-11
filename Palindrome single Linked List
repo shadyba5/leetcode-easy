@@ -1,0 +1,74 @@
+#include <iostream>
+
+using namespace std;
+
+// Definition for singly-linked list.
+ struct ListNode {
+     int val;
+     ListNode *next;
+
+     ListNode() : val(0), next(nullptr) {}
+
+     ListNode(int x) : val(x), next(nullptr) {}
+
+     ListNode(int x, ListNode *next) : val(x), next(next) {}
+ };
+
+
+class Solution {
+public:
+    static ListNode* findListMid(ListNode * head){
+        ListNode* oneStep=head;
+        ListNode* twoStep=head;
+        while(twoStep != nullptr){
+            oneStep=oneStep->next;
+            twoStep=twoStep->next;
+            if(twoStep!= nullptr){
+                twoStep=twoStep->next;
+            }
+        }
+        return oneStep;
+    }
+    static ListNode* reverseList(ListNode * head){
+        ListNode* curr=head;
+        ListNode* temp;
+        ListNode* prev= nullptr;
+        while(curr!= nullptr){
+            temp=curr->next;
+            curr->next = prev;
+            prev=curr;
+            curr=temp;
+        }
+        return prev;
+    }
+
+    static bool isPalindrome(ListNode* head) {
+        ListNode* mid= findListMid(head);
+        ListNode* head2= reverseList(mid);
+        while (head2!= nullptr && head!= nullptr){
+           if(head->val != head2->val){
+               return false;
+           }
+           head=head->next;
+           head2=head2->next;
+        }
+        return true;
+    }
+};
+
+int main() {
+    new Solution();
+    ListNode a = ListNode(1);
+    ListNode b = ListNode(2);
+    ListNode c = ListNode(0);
+    ListNode d = ListNode(1);
+    ListNode e = ListNode(1);
+    a.next=&b;
+    b.next=&c;
+    c.next=&d;
+    d.next=&e;
+    e.next= nullptr;
+    bool res = Solution::isPalindrome(&a);
+    cout << res;
+    return 0;
+}
