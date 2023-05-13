@@ -1,0 +1,51 @@
+#include <string>
+#include <iostream>
+#include <vector>
+#include "stdio.h"
+
+using namespace std;
+
+class Solution {
+public:
+    static string numberToletter(int i){
+        string res;
+        int count=10;
+        while(i!=0){
+            int temp=i%count;
+            i=i/10;
+            char a=temp+'0';
+            string b=(string)&a;
+            res = b+res;
+        }
+        return res;
+
+    }
+    static vector<string> fizzBuzz(int n) {
+        vector<string> res;
+        for (int i = 1; i <= n; ++i) {
+            if ((i%3==0) && (i%5==0)){
+                res.insert(res.end(),"FizzBuzz");
+            }
+            else if ((i%3==0)){
+                res.insert(res.end(),"Fizz");
+            }
+            else if ((i%5==0)){
+                res.insert(res.end(),"Buzz");
+            }
+            else{
+                res.insert(res.end(),numberToletter(i));
+            }
+        }
+        return res;
+
+    }
+};
+int main() {
+    int n;
+    cin >> n ;
+    vector<string> res=Solution::fizzBuzz(n);
+    for (int i = 0; i < n; ++i) {
+        cout << res[i] << endl;
+    }
+    return 0;
+}
