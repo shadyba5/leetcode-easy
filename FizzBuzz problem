@@ -10,12 +10,12 @@ public:
     static string numberToletter(int i){
         string res;
         int count=10;
+        int idx=0;
         while(i!=0){
             int temp=i%count;
             i=i/10;
             char a=temp+'0';
-            string b=(string)&a;
-            res = b+res;
+            res.insert(res.begin(),a);
         }
         return res;
 
