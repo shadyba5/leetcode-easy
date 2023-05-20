@@ -1,0 +1,23 @@
+
+#include <vector>
+using namespace std;
+
+class Solution {
+public:
+    int maximumWealth(vector<vector<int>>& accounts) {
+        int costumers_num = accounts.size();
+        int banks_num = accounts[0].size();
+        int max_wealth=0;
+        int temp_cost_wealth=0;
+        for(int i=0; i < costumers_num ; i++){
+            for(int j=0; j < banks_num ; j++){
+                temp_cost_wealth+=accounts[i][j];
+            }
+            if(temp_cost_wealth>max_wealth){
+                max_wealth=temp_cost_wealth;
+            }
+            temp_cost_wealth=0;
+        }
+        return max_wealth;
+    }
+};
