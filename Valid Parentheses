@@ -1,0 +1,57 @@
+#include <string>
+#include <iostream>
+#include <vector>
+#include "stdio.h"
+#include <set>
+
+using namespace std;
+
+
+
+class Solution {
+public:
+    static bool isNotSpec(char s){
+        if( s != ')' && s!= '(' && s!= '[' && s!= ']' && s!= '{' && s!= '}' ){
+            return true;
+        }
+        return false;
+    }
+    static bool isValid(string s) {
+        vector<char> openBraList;
+        for(int i=0; i<s.length() ;i++){
+            if(isNotSpec(s[i])){
+                continue;
+            }
+            if(s[i]=='(' || s[i]=='[' || s[i]=='{'){
+                openBraList.insert(openBraList.end(), s[i]);
+                continue;
+            }
+            else{
+                if(openBraList.empty()){
+                    return false;
+                }
+                if((s[i]==']' && openBraList[openBraList.size()-1] == '[' ) ||
+                    (s[i]== ')' && openBraList[openBraList.size()-1] =='(') ||
+                        (s[i]=='}' && openBraList[openBraList.size()-1]=='{')){
+                    openBraList.pop_back();
+                    continue;
+                }
+                else{
+                    return false;
+                }
+            }
+        }
+        if(openBraList.empty()){
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+};
+int main() {
+    string s;
+    cin >> s;
+    cout << Solution::isValid(s);
+    return 0;
+}
