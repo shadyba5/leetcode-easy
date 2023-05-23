@@ -1,0 +1,40 @@
+#include <string>
+#include <map>
+#include <set>
+
+
+using namespace std;
+
+
+class Solution {
+public:
+    static bool isIsomorphic(string s, string t) {
+        map<char,char> specDic;
+        set<char> mapped;
+        for (int i = 0; i < s.size(); ++i) {
+            if(specDic.find(s[i]) == specDic.end()){//not found
+                if(mapped.count(t[i])>0){
+                    return false;
+                }
+                specDic.insert({s[i],t[i]});
+                mapped.insert(t[i]);
+            }
+            else{
+                if(specDic.find(s[i])->second==t[i]){
+                    continue;
+                }
+                else{
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+};
+
+int main(){
+    string s ="badc";
+    string t= "baba";
+    bool res = Solution::isIsomorphic(s,t);
+    return 0;
+}
