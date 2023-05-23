@@ -8,7 +8,7 @@ public:
         if(n==1 || n==7){
             return true;
         }
-        if(n>1 && n < 9)
+        if(n>1 && n <= 9)
             return false;
         int sum=0;
         while(n!=0){
