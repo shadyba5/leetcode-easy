@@ -1,0 +1,28 @@
+#include <string>
+
+using namespace std;
+
+class Solution {
+public:
+    static bool isAnagram(string s, string t) {
+        if(s.length()!=t.length())
+            return false;
+        int hist[26]={};
+        for (int i = 0; i < s.length() ; ++i) {
+            hist[s[i]-'a']++;
+        }
+        for (int i = 0; i < s.length(); ++i) {
+            if(hist[t[i]-'a']==0)
+                return false;
+            hist[t[i]-'a']--;
+        }
+        return true;
+    }
+};
+
+int main(){
+    Solution::isAnagram("aabz","baaz");
+
+
+    return 0;
+}
