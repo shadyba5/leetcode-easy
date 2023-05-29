@@ -1,0 +1,73 @@
+#include <cstdio>
+
+using namespace std;
+
+
+struct TreeNode {
+    int val;
+    TreeNode *left;
+    TreeNode *right;
+    TreeNode() : val(0), left(nullptr), right(nullptr) {}
+    TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+    TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+};
+
+
+class Solution {
+public:
+    TreeNode* mergeTrees(TreeNode* root1, TreeNode* root2) {
+        if(root1== nullptr && root2== nullptr){
+            return nullptr;
+        }
+        int val1,val2;
+        if(root1== nullptr)
+            val1=0;
+        else
+            val1=root1->val;
+        if(root2== nullptr)
+            val2=0;
+        else
+            val2=root2->val;
+
+        TreeNode *resRoot= new TreeNode(val1+val2);
+
+        TreeNode *left1= (root1 == nullptr) ? nullptr : root1->left;
+        TreeNode *left2= (root2 == nullptr) ? nullptr : root2->left;
+        resRoot->left = mergeTrees(left1,left2);
+
+        TreeNode *right1= (root1 == nullptr) ? nullptr : root1->right;
+        TreeNode *right2= (root2 == nullptr) ? nullptr : root2->right;
+        resRoot->right = mergeTrees(right1,right2);
+
+        return resRoot;
+    }
+};
+
+int main(){
+    Solution sol;
+    TreeNode r1=TreeNode(1);
+    TreeNode r2=TreeNode(2);
+    TreeNode r3=TreeNode(3);
+    TreeNode r4=TreeNode(5);
+    TreeNode r5=TreeNode(2);
+    TreeNode r6=TreeNode(1);
+    TreeNode r7=TreeNode(3);
+    TreeNode r8=TreeNode(4);
+    TreeNode r9=TreeNode(7);
+    
+    //tree1
+    r1.left=&r3;
+    r1.right=&r2;
+    r3.left=&r4;
+    
+    //tree2
+    r5.left=&r6;
+    r5.right=&r7;
+    r6.right=&r8;
+    r7.right=&r9;
+    
+    //res tree
+    TreeNode* res = sol.mergeTrees(&r1,&r5);
+    
+    return 0;
+}
