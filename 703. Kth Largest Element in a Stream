@@ -1,0 +1,40 @@
+//////////////////// saving only largest K elemnents in a vector and returning the minimal one, O(k) time can be reduced to O(log(k)) if we use minHeap instead of a vector on each add //////////
+using namespace std;
+
+class KthLargest {
+private:
+    int k;
+    vector<int> kLargestNums;
+
+public:
+    KthLargest(int k, vector<int>& nums) {
+        this->k=k;
+        kLargestNums = vector<int>(k,-10001);
+        if(nums.empty())
+            return;
+        sort(nums.begin(),nums.end());
+        int count=0;
+        int min = k<nums.size() ? k : nums.size();
+        for (int i=0; i<min ; i++) {
+            kLargestNums[i]=nums[nums.size()-1-i];
+            count++;
+            if(count==k)
+                break;
+        }
+    }
+
+    int add(int val) {
+        int i;
+        bool changed = false;
+        for (i = 0; i < kLargestNums.size(); ++i) {
+            if(kLargestNums[i]<=val){
+                kLargestNums.insert(kLargestNums.begin()+i,val);
+                changed=true;
+                break;
+            }
+        }
+        if(changed)
+            kLargestNums.pop_back();
+        return kLargestNums[k-1];
+    }
+};
