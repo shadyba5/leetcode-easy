@@ -1,0 +1,38 @@
+#include <vector>
+#include <algorithm>
+#include <set>
+
+using namespace std;
+
+
+class MyHashSet {
+private:
+    vector<set<int>> HashTable;
+    int used;
+    int capacity;
+
+public:
+    MyHashSet() {
+        HashTable = vector<set<int>>(2500);
+        capacity=2500;
+    }
+
+
+    void add(int key) {
+        int idx = key % (this->capacity);
+        HashTable[idx].insert( key);
+    }
+
+    void remove(int key) {
+        int idx=key%(this->capacity);
+        HashTable[idx].erase(key);
+    }
+
+    bool contains(int key) {
+        int idx=key%(this->capacity);
+        if(HashTable[idx].find(key)==  HashTable[idx].end())
+            return false;
+        return true;
+    }
+
+};
