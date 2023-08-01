@@ -1,0 +1,30 @@
+class Solution {
+public:
+    int countCharacters(vector<string>& words, string chars) {
+        vector<int> dynamicHist(26,0);
+        vector<int> staticHist(26,0);
+        int sum=0;
+        for (int i = 0;  i < chars.size(); ++i) {
+            dynamicHist[chars[i]-'a']++;
+            staticHist[chars[i]-'a']++;
+        }
+        for (int i = 0; i < words.size() ; ++i) {
+            bool valid=true;
+            for (int j = 0; j < words[i].size(); ++j) {
+                if(dynamicHist[(words[i][j])-'a']<=0){
+                    valid=false;
+                    break;
+                }
+                dynamicHist[(words[i][j])-'a']--;
+            }
+            if(valid){
+                sum += words[i].size();
+            }
+            for (int j = 0; j < 26; ++j) {
+                dynamicHist[j]= staticHist[j];
+            }
+        }
+        return sum;
+    }
+    
+};
