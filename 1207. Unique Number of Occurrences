@@ -1,0 +1,23 @@
+class Solution {
+public:
+    bool uniqueOccurrences(vector<int>& arr) {
+        map<int,int> occ;
+        map<int,int> map;
+        for(int i=0; i < arr.size();i++){
+            if(map.count(arr[i])==0)
+                map.insert({arr[i],1});
+            else{
+                map.find(arr[i])->second++;
+            }
+        }
+        for (auto itr=map.begin();itr!=map.end();itr++) {
+            if(occ.count(itr->second)==0){
+                occ.insert({itr->second,itr->first});
+            }
+            else{
+                return false;
+            }
+        }
+        return true;
+    }
+};
